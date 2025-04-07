@@ -15,15 +15,16 @@ library(mosaic)
 library(MatchIt)
 ```
 
-Link to github respository with Rmd file: https://github.com/ygnewyork/SDS_HW7
+Link to github respository with Rmd file: <https://github.com/ygnewyork/SDS_HW7>
 
-## Question 1 - Armfolding 
+## Question 1 - Armfolding
 
 ```{r}
 
 arms <- read_csv("armfold.csv")
 
 ```
+
 ### Part A
 
 ```{r}
@@ -38,6 +39,7 @@ male_prop <- male_left / male_count
 female_prop <- female_left / female_count
 
 ```
+
 The number of males in the dataset is 106, and number of females is 111. The sample proportion of males who folded their left arm on top is about 0.47, and for females is about 0.42.
 
 ### Part B
@@ -69,7 +71,7 @@ upper_bound <- (diff_prop + moe)
 
 ```
 
-The result for the 95% confidence interval using conf.int on prop.test for the difference in proportions between males and females is (-0.09, 0.19). The hand-calculated method was found by calculating the standard error by doing the formula sqrt(male_prop * (1 - male_prop) / male_count + female_prop * (1 - female_prop) / female_count) and using a z_score of 1.96 as we're calculating a 95% confidence interval, then finding the MOE by doing se * z and then finding the lower and upper bounds by subtracting and adding the MOE to the observed difference of proportions, resulting in interval bounds (-0.08, 0.18). 
+The result for the 95% confidence interval using conf.int on prop.test for the difference in proportions between males and females is (-0.09, 0.19). The hand-calculated method was found by calculating the standard error by doing the formula sqrt(male_prop \* (1 - male_prop) / male_count + female_prop \* (1 - female_prop) / female_count) and using a z_score of 1.96 as we're calculating a 95% confidence interval, then finding the MOE by doing se \* z and then finding the lower and upper bounds by subtracting and adding the MOE to the observed difference of proportions, resulting in interval bounds (-0.08, 0.18).
 
 ### Part D
 
@@ -95,7 +97,7 @@ We can't reject the claim, as the interval (-0.01, 0.30) contains the value of 0
 
 If repeated many times, the confidence interval would be different as we would have sampling variability, leading to different samples of potentially more males/females who fold their arms another way, or fewer. Since these samples are different, the sample proportions would also vary, and the confidence intervals that use these proportions would also vary as a result. For all of these intervals, however, if you were to repeat them many, many times, and collect all the different 95% confidence intervals from each sample, 95% of the intervals would contain the true difference in arm-folding proportions between males and females in the entire university student population.
 
-## Question 2
+## Question 2 - Turnout
 
 ```{r}
 
@@ -142,6 +144,7 @@ print("95% Confidence Interval for voting in 1996 and voting in 1998")
 prop_test_v96_v98
 
 ```
+
 For the voted1996 variable, it's a confounder on the causal effect of the GOTV call affecting the likelihood that a person voted in 1998, as it increases the likelihood of both of those variables. We can see this through calculating the prop.test 95% confidence intervals and seeing that since they both don't contain zero, that voting in 1996 increases your chance of receiving a call AND voting in 1998. Since this variable impacts both of these, it's a confounder that needs to be accounted for when looking for the causal relationship of just the call on 1998 voting likelihood.
 
 ```{r}
@@ -205,8 +208,10 @@ prop.test(match_call_pty)
 
 print("Matched confidence intervals for GOTV calls and mean ages")
 t.test(AGE ~ GOTV_call, data = votes_matched)
+
 ```
-As shown from the 95% confidence intervals, all of them contain the value zero for the 3 confounding variables of voting in 1996, being registered to a major party, and ages, which shows that the dataset is matched evenly between the groups of receiving or not receiving a call with a ratio of 5 control cases for each treated case. 
+
+As shown from the 95% confidence intervals, all of them contain the value zero for the 3 confounding variables of voting in 1996, being registered to a major party, and ages, which shows that the dataset is matched evenly between the groups of receiving or not receiving a call with a ratio of 5 control cases for each treated case.
 
 ```{r}
 call_count_matched <- sum(votes_matched$GOTV_call == 1) 
@@ -224,4 +229,5 @@ totals_matched <- c(call_count_matched, nocall_count_matched)
 diff_matched <- prop.test(votes_count_matched, totals_matched)  
 diff_matched
 ```
+
 The proportion of those receiving a GOTV call who voted in 1998 with the matched data is 0.648, and the sample proportion of those not receiving a GOTV call who voted in 1998 with the matched data is 0.569. The large sample 95% confidence interval for the difference in these two proportions is (0.010, 0.147). Since this interval does not contain the value zero, it means that the GOTV call does statistically significantly (at a 0.95 level) increase the likelihood of voting in the 1998 election, by a couple of percentage points.
