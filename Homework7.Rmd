@@ -125,7 +125,7 @@ diff <- prop.test(votes, totals)
 diff
 ```
 
-The proportion of those receiving a GOTV call who voted in 1998 is 0.650, and the sample proportion of those not receiving a GOTV call who voted in 1998 is 0.444. The large sample 95% confidence interval for the difference in these two proportions is (0.141, 0.266).
+The proportion of those receiving a GOTV call who voted in 1998 is 0.648, and the sample proportion of those not receiving a GOTV call who voted in 1998 is 0.444. The large sample 95% confidence interval for the difference in these two proportions is (0.141, 0.266).
 
 ### Part B
 
